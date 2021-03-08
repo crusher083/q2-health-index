@@ -97,6 +97,12 @@ def calculate_gmhi(ctx,
     kh = round(n_healthy / 100)
     kn = round(n_non_healthy / 100)
 
+    # Avoiding zero indices for small groups
+    if kh == 0:
+        kh += 1
+    elif kn == 0:
+        kn += 1
+
     # Median RMH from 1% of the top-ranked samples (see Methods)
     HC1 = constant.sort_values(by=['h', 'n'], ascending=[False, True])
     MH_prime = np.median(HC1[:kh]['h'])
